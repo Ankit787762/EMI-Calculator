@@ -62,7 +62,7 @@ import { AppContext } from "@/context/AppContext";
         <input
           type="range"
           min="1"
-          max="30"
+          max="36"
           value={rate}
           onChange={(e) => setRate(Number(e.target.value))}
           className="w-full"

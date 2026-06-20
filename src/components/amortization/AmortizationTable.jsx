@@ -3,6 +3,7 @@
 import { AppContext } from "@/context/AppContext";
 import calculateEMI from "@/utils/emi";
 import { useContext, useState } from "react";
+import ChartView from "./ChartView";
 
 function AmortizationTable() {
   const { view, setView, amount, rate, tenure } = useContext(AppContext);
@@ -14,13 +15,14 @@ function AmortizationTable() {
     const interest = (balance * rate) / 12 / 100;
 
     const principal = emi - interest;
-    balance = balance - principal;
+    balance = Math.max(balance - principal, 0);
+
     schedule.push({
       month,
       emi,
       principal,
       interest,
-      balance: Math.max(balance, 0),
+      balance,
     });
   }
 
@@ -53,14 +55,18 @@ function AmortizationTable() {
         <div className="flex gap-2 text-xs">
           <button
             onClick={() => setView("table")}
-            className="px-4 py-2 rounded-lg bg-blue-600 text-white"
+            className={`px-4 py-2 rounded-lg ${
+              view === "table" ? "bg-blue-600 text-white" : "hover:bg-blue-100"
+            }`}
           >
             Table
           </button>
 
           <button
             onClick={() => setView("chart")}
-            className="px-4 py-2 rounded-lg hover:bg-blue-100"
+            className={`px-4 py-2 rounded-lg ${
+              view === "chart" ? "bg-blue-600 text-white" : "hover:bg-blue-100"
+            }`}
           >
             Chart
           </button>
@@ -70,9 +76,9 @@ function AmortizationTable() {
       </div>
 
       {/* Table / Chart View */}
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-        {view === "table" && (
-          <div className="overflow-auto max-h-[450px]">
+    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden min-w-0">
+  {view === "table" && (
+    <div className="overflow-auto max-h-[450px]">
             <table className="w-full table-fixed text-xs">
               <thead className="bg-gray-50">
                 <tr className="border-b">
@@ -101,11 +107,7 @@ function AmortizationTable() {
           </div>
         )}
 
-        {view === "chart" && (
-          <div className="h-80 flex items-center justify-center">
-            Chart Coming Soon
-          </div>
-        )}
+        {view === "chart" && <ChartView schedule={schedule} />}
       </div>
 
       {/* Footer */}
