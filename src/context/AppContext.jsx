@@ -10,18 +10,18 @@ function AppProvider({ children }) {
   const [tenure, setTenure] = useState(36);
   const [mode, setMode] = useState("single");
   const [view, setView] = useState("table");
-  const [theme, setTheme] = useState("light"); // ← ADD THIS
-
+  const [theme, setTheme] = useState("light");
+  const [prepayments, setPrepayments] = useState([]);
   const [activeTabs, setActiveTabs] = useState(1);
   const [tabId, setTabId] = useState("");
 
   const channelRef = useRef(null);
   const presenceRef = useRef({});
+  const isSyncingRef = useRef(false); // ← ADD THIS
 
-  // Apply theme to document root whenever it changes
-useEffect(() => {
-  document.documentElement.setAttribute("data-theme", theme);
-}, [theme]);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const id = crypto.randomUUID().slice(0, 6);
@@ -67,12 +67,17 @@ useEffect(() => {
       }
 
       if (data.type === "STATE_UPDATE") {
+        isSyncingRef.current = true;
         setAmount(data.amount);
         setRate(data.rate);
         setTenure(data.tenure);
         setMode(data.mode);
         setView(data.view);
-        setTheme(data.theme); // ← ADD THIS
+        setTheme(data.theme);
+        setPrepayments(data.prepayments ?? []);
+        setTimeout(() => {
+          isSyncingRef.current = false;
+        }, 100); // ← change 0 to 100
         return;
       }
     };
@@ -87,6 +92,7 @@ useEffect(() => {
 
   useEffect(() => {
     if (!channelRef.current) return;
+    if (isSyncingRef.current) return; // ← SKIP broadcast if we just received one
     channelRef.current.postMessage({
       type: "STATE_UPDATE",
       amount,
@@ -94,19 +100,28 @@ useEffect(() => {
       tenure,
       mode,
       view,
-      theme, // ← ADD THIS
+      theme,
+      prepayments,
     });
-  }, [amount, rate, tenure, mode, view, theme]); // ← ADD theme here
+  }, [amount, rate, tenure, mode, view, theme, prepayments]);
 
   return (
     <AppContext.Provider
       value={{
-        amount, setAmount,
-        rate, setRate,
-        tenure, setTenure,
-        mode, setMode,
-        view, setView,
-        theme, setTheme, // ← ADD THIS
+        amount,
+        setAmount,
+        rate,
+        setRate,
+        tenure,
+        setTenure,
+        mode,
+        setMode,
+        view,
+        setView,
+        theme,
+        setTheme,
+        prepayments,
+        setPrepayments,
         activeTabs,
         tabId,
       }}

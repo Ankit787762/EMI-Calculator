@@ -167,3 +167,42 @@ body {
 [data-theme="dark"] .recharts-legend-item-text {
   color: #f1f5f9 !important;
 }
+/* ── Break-even row dark mode ── */
+[data-theme="dark"] .bg-blue-50 {
+  background-color: #1e3a5f !important;
+}
+
+/* ── Orange/Interest text stays orange in dark mode ── */
+[data-theme="dark"] .text-orange-500 {
+  color: #fb923c !important;
+}
+
+/* ── Blue/Principal text stays blue in dark mode ── */
+[data-theme="dark"] .text-blue-600 {
+  color: #93c5fd !important;
+}
+
+/* ── Gray buttons (Prev / Next / Export CSV) ── */
+[data-btn="gray"] {
+  background-color: #f3f4f6;
+  color: #1e293b;
+}
+
+[data-btn="gray"]:hover {
+  background-color: #d1d5db;
+}
+
+[data-theme="dark"] [data-btn="gray"] {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] [data-btn="gray"]:hover {
+  background-color: #475569 !important;
+  color: #f1f5f9 !important;
+}
+
+/* ── Table row hover in dark ── */
+[data-theme="dark"] tr:hover td {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}

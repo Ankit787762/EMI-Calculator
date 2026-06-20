@@ -10,6 +10,8 @@ import AmortizationTable from "@/components/amortization/AmortizationTable";
 import CompareMode from "@/components/compareMode/CompareMode";
 import Header from "@/components/layout/Header";
 
+import PrepaymentPlanner from "@/components/Prepayment/PrepaymentPlanner";
+
 function MainContent() {
   const { mode } = useContext(AppContext);
 
@@ -21,7 +23,7 @@ function MainContent() {
         <ModeTabs />
       </div>
 
-      {(mode === "single") && (
+      {mode === "single" && (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
             <LoanInputs />
@@ -44,7 +46,7 @@ function MainContent() {
 
       {mode === "prepayment" && (
         <div className="mt-4">
-          {/* <PrepaymentMode /> */}
+          <PrepaymentPlanner />
         </div>
       )}
     </div>
