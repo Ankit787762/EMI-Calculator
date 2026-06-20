@@ -10,21 +10,33 @@ function AppProvider({ children }) {
   const [tenure, setTenure] = useState(36);
   const [mode,setMode] = useState("");
   const [view, setView] = useState("table");
+  const [activeTabs, setActiveTabs] = useState(1);
 
   const channelRef = useRef(null);
 
   useEffect(() => {
   channelRef.current = new BroadcastChannel("loan-sync");
+ 
 
-  channelRef.current.onmessage = (event) => {
-    const data = event.data;
+   channelRef.current.postMessage({
+    type: "TAB_OPEN",
+    id: tabId.current,
+  });
 
-    setAmount(data.amount);
-    setRate(data.rate);
-    setTenure(data.tenure);
-    setMode(data.mode);
-    setView(data.view);
-  };
+channelRef.current.onmessage = (event) => {
+  const data = event.data;
+
+  if (data.type === "TAB_OPEN") {
+    setActiveTabs((prev) => prev + 1);
+    return;
+  }
+
+  setAmount(data.amount);
+  setRate(data.rate);
+  setTenure(data.tenure);
+  setMode(data.mode);
+  setView(data.view);
+};
 
   return () => {
     channelRef.current.close();
@@ -43,6 +55,8 @@ function AppProvider({ children }) {
   });
 }, [amount, rate, tenure, mode, view]);
 
+  const tabId = useRef(crypto.randomUUID());
+
   return (
     <AppContext.Provider
       value={{
@@ -56,6 +70,7 @@ function AppProvider({ children }) {
         setMode,
         view,
         setView,
+        activeTabs,
       }}
     >
       {children}
