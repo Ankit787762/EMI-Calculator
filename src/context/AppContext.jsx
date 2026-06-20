@@ -9,6 +9,7 @@ function AppProvider({ children }) {
   const [rate, setRate] = useState(2);
   const [tenure, setTenure] = useState(36);
   const [mode,setMode] = useState("");
+  const [view, setView] = useState("table");
 
   return (
     <AppContext.Provider
@@ -21,6 +22,8 @@ function AppProvider({ children }) {
         setTenure,
         mode,
         setMode,
+        view,
+        setView,
       }}
     >
       {children}
