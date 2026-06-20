@@ -1,7 +1,10 @@
-export default function Home() {
+import Header from "@/components/layout/Header";
+
+ function Home() {
   return (
     <div>
-      <h1>Hello Next.js</h1>
+     <Header/>
     </div>
   );
 }
+export default Home
