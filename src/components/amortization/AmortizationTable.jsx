@@ -4,6 +4,8 @@ import { AppContext } from "@/context/AppContext";
 import calculateEMI from "@/utils/emi";
 import { useContext, useState } from "react";
 import ChartView from "./ChartView";
+import exportCSV from "@/utils/exportCSV";
+
 
 function AmortizationTable() {
   const { view, setView, amount, rate, tenure } = useContext(AppContext);
@@ -45,7 +47,7 @@ function AmortizationTable() {
           </p>
         </div>
 
-        <button className="px-4 py-2 text-xs border rounded-lg hover:bg-gray-100">
+        <button onClick={() => exportCSV(schedule)} className="px-4 py-2 text-xs border rounded-lg hover:bg-gray-100">
           Export CSV
         </button>
       </div>
@@ -95,11 +97,11 @@ function AmortizationTable() {
                 {currRows.map((row) => (
                   <tr key={row.month} className="border-b hover:bg-gray-50">
                     <td className="py-3 text-center">{row.month}</td>
-                    <td className="py-3 text-center">₹{row.emi}</td>
-                    <td className="py-3 text-center">₹{row.principal}</td>
-                    <td className="py-3 text-center">₹{row.interest}</td>
+                    <td className="py-3 text-center">₹{row.emi.toFixed(2)}</td>
+                    <td className="py-3 text-center">₹{row.principal.toFixed(2)}</td>
+                    <td className="py-3 text-center">₹{row.interest.toFixed(2)}</td>
                     <td className="py-3 text-center">₹0</td>
-                    <td className="py-3 text-center">₹{row.balance}</td>
+                    <td className="py-3 text-center">₹{row.balance.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
