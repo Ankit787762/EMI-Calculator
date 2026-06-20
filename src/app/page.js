@@ -1,10 +1,35 @@
 import Header from "@/components/layout/Header";
+import LoanInputs from "@/components/calculator/LoanInputs";
+import SummaryCards from "@/components/calculator/SummaryCards";
+// import RatioBar from "@/components/calculator/RatioBar";
+// import SensitivityTable from "@/components/features/SensitivityTable";
+// import ModeTabs from "@/components/features/ModeTabs";
+// import AmortizationTable from "@/components/amortization/AmortizationTable";
 
  function Home() {
   return (
-    <div>
-     <Header/>
+    <div className="min-h-screen bg-gray-100 p-4">
+      <Header />
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
+        <LoanInputs />
+
+        <div className="lg:col-span-2 space-y-4">
+          <SummaryCards />
+          {/* <RatioBar />
+          <SensitivityTable /> */}
+        </div>
+      </div>
+
+      {/* <div className="mt-6">
+        <ModeTabs />
+      </div>
+
+      <div className="mt-6">
+        <AmortizationTable />
+      </div> */}
     </div>
   );
 }
-export default Home
+
+export default Home;
