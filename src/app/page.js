@@ -1,10 +1,9 @@
 import Header from "@/components/layout/Header";
 import LoanInputs from "@/components/calculator/LoanInputs";
 import SummaryCards from "@/components/calculator/SummaryCards";
-// import RatioBar from "@/components/calculator/RatioBar";
-// import SensitivityTable from "@/components/features/SensitivityTable";
-// import ModeTabs from "@/components/features/ModeTabs";
-// import AmortizationTable from "@/components/amortization/AmortizationTable";
+import SensitivityTable from "@/components/features/SensitivityTable";
+import ModeTabs from "@/components/features/ModeTabs";
+import AmortizationTable from "@/components/amortization/AmortizationTable";
 
  function Home() {
   return (
@@ -16,18 +15,17 @@ import SummaryCards from "@/components/calculator/SummaryCards";
 
         <div className="lg:col-span-2 space-y-4">
           <SummaryCards />
-          {/* <RatioBar />
-          <SensitivityTable /> */}
+          <SensitivityTable />
         </div>
       </div>
 
-      {/* <div className="mt-6">
+      <div className="mt-6">
         <ModeTabs />
       </div>
 
       <div className="mt-6">
         <AmortizationTable />
-      </div> */}
+      </div>
     </div>
   );
 }
