@@ -8,69 +8,107 @@ function AppProvider({ children }) {
   const [amount, setAmount] = useState(1500000);
   const [rate, setRate] = useState(2);
   const [tenure, setTenure] = useState(36);
-  const [mode,setMode] = useState("");
+  const [mode, setMode] = useState("");
   const [view, setView] = useState("table");
+  const [theme, setTheme] = useState("light"); // ← ADD THIS
+
   const [activeTabs, setActiveTabs] = useState(1);
+  const [tabId, setTabId] = useState("");
 
   const channelRef = useRef(null);
+  const presenceRef = useRef({});
+
+  // Apply theme to document root whenever it changes
+useEffect(() => {
+  document.documentElement.setAttribute("data-theme", theme);
+}, [theme]);
 
   useEffect(() => {
-  channelRef.current = new BroadcastChannel("loan-sync");
- 
+    const id = crypto.randomUUID().slice(0, 6);
+    setTabId(id);
 
-   channelRef.current.postMessage({
-    type: "TAB_OPEN",
-    id: tabId.current,
-  });
+    const channel = new BroadcastChannel("loan-sync");
+    channelRef.current = channel;
 
-channelRef.current.onmessage = (event) => {
-  const data = event.data;
+    presenceRef.current[id] = Date.now();
+    setActiveTabs(1);
 
-  if (data.type === "TAB_OPEN") {
-    setActiveTabs((prev) => prev + 1);
-    return;
-  }
+    channel.postMessage({ type: "TAB_JOIN", id });
 
-  setAmount(data.amount);
-  setRate(data.rate);
-  setTenure(data.tenure);
-  setMode(data.mode);
-  setView(data.view);
-};
+    const heartbeat = setInterval(() => {
+      presenceRef.current[id] = Date.now();
+      channel.postMessage({ type: "HEARTBEAT", id, timestamp: Date.now() });
+    }, 2000);
 
-  return () => {
-    channelRef.current.close();
-  };
-}, []);
+    const cleanup = setInterval(() => {
+      const now = Date.now();
+      Object.keys(presenceRef.current).forEach((tab) => {
+        if (now - presenceRef.current[tab] > 5000) {
+          delete presenceRef.current[tab];
+        }
+      });
+      setActiveTabs(Object.keys(presenceRef.current).length);
+    }, 2000);
+
+    channel.onmessage = (event) => {
+      const data = event.data;
+
+      if (data.type === "TAB_JOIN") {
+        presenceRef.current[data.id] = Date.now();
+        channel.postMessage({ type: "HEARTBEAT", id, timestamp: Date.now() });
+        setActiveTabs(Object.keys(presenceRef.current).length);
+        return;
+      }
+
+      if (data.type === "HEARTBEAT") {
+        presenceRef.current[data.id] = data.timestamp;
+        setActiveTabs(Object.keys(presenceRef.current).length);
+        return;
+      }
+
+      if (data.type === "STATE_UPDATE") {
+        setAmount(data.amount);
+        setRate(data.rate);
+        setTenure(data.tenure);
+        setMode(data.mode);
+        setView(data.view);
+        setTheme(data.theme); // ← ADD THIS
+        return;
+      }
+    };
+
+    return () => {
+      clearInterval(heartbeat);
+      clearInterval(cleanup);
+      delete presenceRef.current[id];
+      channel.close();
+    };
+  }, []);
 
   useEffect(() => {
-  if (!channelRef.current) return;
-
-  channelRef.current.postMessage({
-    amount,
-    rate,
-    tenure,
-    mode,
-    view,
-  });
-}, [amount, rate, tenure, mode, view]);
-
-  const tabId = useRef(crypto.randomUUID());
+    if (!channelRef.current) return;
+    channelRef.current.postMessage({
+      type: "STATE_UPDATE",
+      amount,
+      rate,
+      tenure,
+      mode,
+      view,
+      theme, // ← ADD THIS
+    });
+  }, [amount, rate, tenure, mode, view, theme]); // ← ADD theme here
 
   return (
     <AppContext.Provider
       value={{
-        amount,
-        setAmount,
-        rate,
-        setRate,
-        tenure,
-        setTenure,
-        mode,
-        setMode,
-        view,
-        setView,
+        amount, setAmount,
+        rate, setRate,
+        tenure, setTenure,
+        mode, setMode,
+        view, setView,
+        theme, setTheme, // ← ADD THIS
         activeTabs,
+        tabId,
       }}
     >
       {children}

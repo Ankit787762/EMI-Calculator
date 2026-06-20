@@ -13,19 +13,35 @@ function AmortizationTable() {
   let balance = amount;
   const schedule = [];
 
+  let cumulativePrincipal = 0;
+let cumulativeInterest = 0;
+let breakEvenMonth = null;
+  
+
   for (let month = 1; month <= tenure; month++) {
     const interest = (balance * rate) / 12 / 100;
 
-    const principal = emi - interest;
-    balance = Math.max(balance - principal, 0);
+   const principal = emi - interest;
 
-    schedule.push({
-      month,
-      emi,
-      principal,
-      interest,
-      balance,
-    });
+cumulativePrincipal += principal;
+cumulativeInterest += interest;
+
+if (
+  breakEvenMonth === null &&
+  cumulativePrincipal > cumulativeInterest
+) {
+  breakEvenMonth = month;
+}
+
+balance = Math.max(balance - principal, 0);
+
+schedule.push({
+  month,
+  emi,
+  principal,
+  interest,
+  balance,
+});
   }
 
   const [currPage, setCurrPage] = useState(1);
@@ -74,7 +90,7 @@ function AmortizationTable() {
           </button>
         </div>
 
-        <p className="text-xs text-gray-500">Break-even at month 1</p>
+        <p className="text-xs text-gray-500">Break-even at month {breakEvenMonth}</p>
       </div>
 
       {/* Table / Chart View */}

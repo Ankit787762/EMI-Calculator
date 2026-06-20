@@ -2,8 +2,8 @@
 
 import {
   ResponsiveContainer,
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -22,7 +22,7 @@ function ChartView({ schedule }) {
   return (
     <div className="w-full h-[400px]">
       <ResponsiveContainer width="99%" height={400}>
-        <LineChart data={chartData}>
+        <BarChart data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
 
           <XAxis
@@ -50,24 +50,20 @@ function ChartView({ schedule }) {
 
           <Legend />
 
-          <Line
-            type="monotone"
+          <Bar
             dataKey="principal"
             name="Principal"
-            stroke="#2563eb"
-            strokeWidth={2}
-            dot={false}
+            stackId="payment"
+            fill="#2563eb"
           />
 
-          <Line
-            type="monotone"
+          <Bar
             dataKey="interest"
             name="Interest"
-            stroke="#f97316"
-            strokeWidth={2}
-            dot={false}
+            stackId="payment"
+            fill="#f97316"
           />
-        </LineChart>
+        </BarChart>
       </ResponsiveContainer>
     </div>
   );
