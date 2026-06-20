@@ -6,26 +6,26 @@ import ModeTabs from "@/components/features/ModeTabs";
 import AmortizationTable from "@/components/amortization/AmortizationTable";
 
  function Home() {
-  return (
+   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <Header />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
-        <LoanInputs />
+  <div className="mt-4 w-full lg:w-[32%]">
+  <ModeTabs />
+</div>
 
-        <div className="lg:col-span-2 space-y-4">
-          <SummaryCards />
-          <SensitivityTable />
-        </div>
-      </div>
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
+  <LoanInputs />
 
-      <div className="mt-6">
-        <ModeTabs />
-      </div>
+  <div className="lg:col-span-2 space-y-4">
+    <SummaryCards />
+    <SensitivityTable />
+  </div>
+</div>
 
-      <div className="mt-6">
-        <AmortizationTable />
-      </div>
+<div className="mt-6">
+  <AmortizationTable />
+</div>
     </div>
   );
 }

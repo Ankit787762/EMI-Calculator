@@ -8,7 +8,7 @@ import { AppContext } from "@/context/AppContext";
     useContext(AppContext);
 
   return (
-    <div className="bg-white rounded-xl shadow p-4">
+    <div className="bg-white rounded-xl shadow p-4 min-h-[540px]">
       <h2 className="text-lg font-semibold">Loan Details</h2>
 
       <p className="text-xs text-gray-500 mb-4">

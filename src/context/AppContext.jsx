@@ -8,6 +8,7 @@ function AppProvider({ children }) {
   const [amount, setAmount] = useState(1500000);
   const [rate, setRate] = useState(2);
   const [tenure, setTenure] = useState(36);
+  const [mode,setMode] = useState("");
 
   return (
     <AppContext.Provider
@@ -18,6 +19,8 @@ function AppProvider({ children }) {
         setRate,
         tenure,
         setTenure,
+        mode,
+        setMode,
       }}
     >
       {children}
