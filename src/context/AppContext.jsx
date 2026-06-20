@@ -8,7 +8,7 @@ function AppProvider({ children }) {
   const [amount, setAmount] = useState(1500000);
   const [rate, setRate] = useState(2);
   const [tenure, setTenure] = useState(36);
-  const [mode, setMode] = useState("");
+  const [mode, setMode] = useState("single");
   const [view, setView] = useState("table");
   const [theme, setTheme] = useState("light"); // ← ADD THIS
 

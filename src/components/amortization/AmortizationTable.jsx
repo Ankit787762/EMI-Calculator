@@ -63,7 +63,7 @@ schedule.push({
           </p>
         </div>
 
-        <button onClick={() => exportCSV(schedule)} className="px-4 py-2 text-xs border rounded-lg hover:bg-gray-100">
+        <button onClick={() => exportCSV(schedule)} className="px-4 py-2 text-xs border rounded-lg bg-gray-100 hover:bg-gray-300">
           Export CSV
         </button>
       </div>
@@ -139,7 +139,7 @@ schedule.push({
         <div className="flex text-xs items-center gap-3">
           <button
             onClick={() => setCurrPage((prev) => Math.max(prev - 1, 1))}
-            className="px-3 py-1 border rounded"
+            className="bg-gray-100 hover:bg-gray-300 px-3 py-1 border rounded"
           >
             Prev
           </button>
@@ -152,7 +152,7 @@ schedule.push({
             onClick={() =>
               setCurrPage((prev) => Math.min(prev + 1, totalPages))
             }
-            className="px-3 py-1 border rounded"
+            className=" bg-gray-100 hover:bg-gray-300 px-3 py-1 border rounded"
           >
             Next
           </button>
