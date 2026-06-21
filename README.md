@@ -1,13 +1,8 @@
 # 💰 EMI Calculator with Shared Workspace
 
-A modern EMI Calculator built with **Next.js 14** that provides real-time loan analysis and a collaborative multi-tab experience. Changes made in one browser tab are instantly synchronized across all other open tabs using the **BroadcastChannel API**, without requiring any backend.
+A modern EMI Calculator built with **Next.js 14**, featuring real-time loan analysis, amortization schedules, loan comparison, and cross-tab synchronization using the **BroadcastChannel API**.
 
-![EMI Calculator Dashboard](./screenshots/dashboard.png)
-
-![Next.js](https://img.shields.io/badge/Next.js-14-black)
-![React](https://img.shields.io/badge/React-19-blue)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4.0-38BDF8)
-![Recharts](https://img.shields.io/badge/Recharts-Charting-orange)
+<img width="1872" height="910" alt="image" src="https://github.com/user-attachments/assets/6bd22994-d657-4245-b1c4-140410d6a301" />
 
 ---
 
@@ -75,19 +70,13 @@ This project was built as part of a Frontend Internship Assignment to demonstrat
 
 ---
 
-## 📸 Screenshots
-
-### Dashboard
-
-![Dashboard](./screenshots/dashboard.png)
-
 ### Loan Comparison Mode
 
-![Comparison Mode](./screenshots/comparison.png)
+<img width="1876" height="898" alt="image" src="https://github.com/user-attachments/assets/9a12079d-e8ea-4d97-a6fa-89ea58b2b618" />
 
 ### Amortization Schedule
 
-![Amortization Schedule](./screenshots/amortization.png)
+<img width="1842" height="916" alt="image" src="https://github.com/user-attachments/assets/7e5dffe8-0079-49d2-9f9a-1c9218b7c295" />
 
 ---
 
