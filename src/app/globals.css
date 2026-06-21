@@ -64,7 +64,12 @@ body {
   color: inherit !important;
 }
 
-/* ── Active badge ── */
+/* ── Orange/Interest text stays orange ── */
+[data-theme="dark"] .text-orange-500 {
+  color: #fb923c !important;
+}
+
+/* ── Active badge & blue text ── */
 [data-theme="dark"] .bg-blue-100 {
   background-color: #1e40af !important;
 }
@@ -115,7 +120,16 @@ body {
   background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
-/* ── Buttons ── */
+[data-theme="dark"] tr:hover td {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ── Break-even row ── */
+[data-theme="dark"] .bg-blue-50 {
+  background-color: #1e3a5f !important;
+}
+
+/* ── Buttons (general) ── */
 [data-theme="dark"] button:not(.bg-blue-600) {
   color: #f1f5f9 !important;
 }
@@ -130,56 +144,15 @@ body {
   color: #f1f5f9 !important;
 }
 
-/* ── Scrollbar ── */
-[data-theme="dark"] ::-webkit-scrollbar {
-  width: 6px;
-}
+/* ── Toggle buttons (Table / Chart inactive state) ── */
 
-[data-theme="dark"] ::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 3px;
-}
-
-/* ── Chart tooltip dark mode ── */
-[data-theme="dark"] .recharts-tooltip-wrapper .recharts-default-tooltip {
-  background-color: #1e293b !important;
-  border-color: #334155 !important;
+[data-theme="dark"] .hover\:bg-gray-200:hover {
+  background-color: #475569 !important;
   color: #f1f5f9 !important;
 }
 
-[data-theme="dark"] .recharts-default-tooltip .recharts-tooltip-label {
-  color: #f1f5f9 !important;
-}
-
-[data-theme="dark"] .recharts-default-tooltip .recharts-tooltip-item {
-  color: #94a3b8 !important;
-}
-
-/* ── Chart text (axis labels) ── */
-[data-theme="dark"] .recharts-cartesian-axis-tick text {
-  fill: #94a3b8 !important;
-}
-
-[data-theme="dark"] .recharts-legend-item-text {
-  color: #f1f5f9 !important;
-}
-/* ── Break-even row dark mode ── */
-[data-theme="dark"] .bg-blue-50 {
-  background-color: #1e3a5f !important;
-}
-
-/* ── Orange/Interest text stays orange in dark mode ── */
-[data-theme="dark"] .text-orange-500 {
-  color: #fb923c !important;
-}
-
-/* ── Blue/Principal text stays blue in dark mode ── */
-[data-theme="dark"] .text-blue-600 {
-  color: #93c5fd !important;
+[data-theme="dark"] button.text-gray-600:not(.bg-blue-600):hover {
+  background-color: #475569 !important;
 }
 
 /* ── Gray buttons (Prev / Next / Export CSV) ── */
@@ -202,7 +175,40 @@ body {
   color: #f1f5f9 !important;
 }
 
-/* ── Table row hover in dark ── */
-[data-theme="dark"] tr:hover td {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+/* ── Scrollbar ── */
+[data-theme="dark"] ::-webkit-scrollbar {
+  width: 6px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+/* ── Chart tooltip ── */
+[data-theme="dark"] .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .recharts-default-tooltip .recharts-tooltip-label {
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .recharts-default-tooltip .recharts-tooltip-item {
+  color: #94a3b8 !important;
+}
+
+/* ── Chart axis & legend ── */
+[data-theme="dark"] .recharts-cartesian-axis-tick text {
+  fill: #94a3b8 !important;
+}
+
+[data-theme="dark"] .recharts-legend-item-text {
+  color: #f1f5f9 !important;
 }

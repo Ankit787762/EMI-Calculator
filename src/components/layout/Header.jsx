@@ -4,7 +4,8 @@ import { AppContext } from "@/context/AppContext";
 import { useContext } from "react";
 
 function Header() {
-  const { activeTabs, tabId, theme, setTheme } = useContext(AppContext); // ← add theme, setTheme
+  // isLeader add kiya
+  const { activeTabs, tabId, theme, setTheme, isLeader } = useContext(AppContext);
 
   return (
     <header className="bg-white rounded-xl shadow p-3 mb-4">
@@ -21,9 +22,17 @@ function Header() {
             <span className="text-sm font-medium">
               {tabId ? `Tab ${tabId}` : "Tab"}
             </span>
-            <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">
-              Active
-            </span>
+
+            {/* LEADER ya Active badge */}
+            {isLeader ? (
+              <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+                LEADER
+              </span>
+            ) : (
+              <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full">
+                Active
+              </span>
+            )}
           </div>
 
           <div className="border border-gray-200 rounded-full px-3 py-1 flex items-center gap-2">
@@ -31,7 +40,6 @@ function Header() {
             <span className="font-semibold">{activeTabs}</span>
           </div>
 
-          {/* ← only this button changed */}
           <button
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"

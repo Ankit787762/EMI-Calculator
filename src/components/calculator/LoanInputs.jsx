@@ -4,8 +4,7 @@ import { useContext } from "react";
 import { AppContext } from "@/context/AppContext";
 
  function LoanInputs() {
-  const { amount, setAmount, rate, setRate, tenure, setTenure } =
-    useContext(AppContext);
+    const { amount, setAmount, rate, setRate, tenure, setTenure, pushHistory } = useContext(AppContext);
 
   return (
     <div className="bg-white rounded-xl shadow p-4 min-h-[540px]">
@@ -25,7 +24,7 @@ import { AppContext } from "@/context/AppContext";
           <input
             type="number"
             value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
+            onChange={(e) => {pushHistory();setAmount(Number(e.target.value));}}
             className="w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
           />
         </div>
@@ -35,7 +34,7 @@ import { AppContext } from "@/context/AppContext";
           min="10000"
           max="5000000"
           value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
+          onChange={(e) =>{pushHistory(); setAmount(Number(e.target.value));}}
           className="w-full"
         />
 
@@ -54,7 +53,7 @@ import { AppContext } from "@/context/AppContext";
           <input
             type="number"
             value={rate}
-            onChange={(e) => setRate(Number(e.target.value))}
+            onChange={(e) =>{pushHistory(); setRate(Number(e.target.value));}}
             className="w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
           />
         </div>
@@ -64,7 +63,7 @@ import { AppContext } from "@/context/AppContext";
           min="1"
           max="36"
           value={rate}
-          onChange={(e) => setRate(Number(e.target.value))}
+          onChange={(e) =>{pushHistory(); setRate(Number(e.target.value));}}
           className="w-full"
         />
 
@@ -83,7 +82,7 @@ import { AppContext } from "@/context/AppContext";
           <input
             type="number"
             value={tenure}
-            onChange={(e) => setTenure(Number(e.target.value))}
+            onChange={(e) =>{pushHistory(); setTenure(Number(e.target.value));}}
             className="w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
           />
         </div>
@@ -93,7 +92,7 @@ import { AppContext } from "@/context/AppContext";
           min="1"
           max="120"
           value={tenure}
-          onChange={(e) => setTenure(Number(e.target.value))}
+          onChange={(e) =>{pushHistory(); setTenure(Number(e.target.value));}}
           className="w-full"
         />
 

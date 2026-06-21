@@ -61,22 +61,22 @@ function AmortizationTable() {
 
       {/* Controls */}
       <div className="flex items-center gap-3 mb-4">
-        <button
-          onClick={() => setView("table")}
-          className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
-            view === "table" ? "bg-blue-600 text-white" : "text-gray-600 hover:bg-blue-50"
-          }`}
-        >
-          Table
-        </button>
-        <button
-          onClick={() => setView("chart")}
-          className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
-            view === "chart" ? "bg-blue-600 text-white" : "text-gray-600 hover:bg-blue-50"
-          }`}
-        >
-          Chart
-        </button>
+       <button
+  onClick={() => setView("table")}
+  className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+    view === "table" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+  }`}
+>
+  Table
+</button>
+<button
+  onClick={() => setView("chart")}
+  className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+    view === "chart" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+  }`}
+>
+  Chart
+</button>
         <span className="text-xs text-gray-500">
           Break-even at{" "}
           <span className="text-blue-600 font-medium">month {breakEvenMonth}</span>

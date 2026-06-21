@@ -1,5 +1,6 @@
 "use client";
 
+import useUndoSync from "@/hooks/useUndoSync";
 import { createContext, useEffect, useRef, useState } from "react";
 
 export const AppContext = createContext();
@@ -14,24 +15,71 @@ function AppProvider({ children }) {
   const [prepayments, setPrepayments] = useState([]);
   const [activeTabs, setActiveTabs] = useState(1);
   const [tabId, setTabId] = useState("");
+  const [isLeader, setIsLeader] = useState(false); // ← leader state
 
   const channelRef = useRef(null);
   const presenceRef = useRef({});
-  const isSyncingRef = useRef(false); // ← ADD THIS
+  const isSyncingRef = useRef(false);
+  const historyRef = useRef([]);
+  const stateRef = useRef({});
+  const myIdRef = useRef(""); // ← apna id ref mein bhi rakkho
+
+  // stateRef updated rakkho
+  useEffect(() => {
+    stateRef.current = { amount, rate, tenure, mode, view, theme, prepayments };
+  }, [amount, rate, tenure, mode, view, theme, prepayments]);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
+  // history save karo
+  function pushHistory() {
+    historyRef.current.push({ ...stateRef.current });
+    if (historyRef.current.length > 50) {
+      historyRef.current.shift();
+    }
+  }
+
+  // leader check function
+  function checkAndSetLeader() {
+    const allTabIds = Object.keys(presenceRef.current).sort();
+    const amILeader = allTabIds[0] === myIdRef.current;
+    setIsLeader(amILeader);
+    return amILeader;
+  }
+
+  // Bonus 2 - Undo
+  useUndoSync(
+    historyRef,
+    isSyncingRef,
+    setAmount,
+    setRate,
+    setTenure,
+    setMode,
+    setView,
+    setTheme,
+    setPrepayments
+  );
+
   useEffect(() => {
-    const id = crypto.randomUUID().slice(0, 6);
-    setTabId(id);
+    // 2 alag variables banao
+const id = `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`; // sorting ke liye
+const shortId = Math.random().toString(36).slice(2, 6).toUpperCase(); // display ke liye
+
+myIdRef.current = id;
+setTabId(shortId); // ← UI mein short id dikhao
 
     const channel = new BroadcastChannel("loan-sync");
     channelRef.current = channel;
 
     presenceRef.current[id] = Date.now();
     setActiveTabs(1);
+
+    // pehla tab khula - 200ms baad check karo leader kaun
+    setTimeout(() => {
+      checkAndSetLeader();
+    }, 200);
 
     channel.postMessage({ type: "TAB_JOIN", id });
 
@@ -43,12 +91,13 @@ function AppProvider({ children }) {
     const cleanup = setInterval(() => {
       const now = Date.now();
       Object.keys(presenceRef.current).forEach((tab) => {
-        if (now - presenceRef.current[tab] > 5000) {
+        if (now - presenceRef.current[tab] > 3000) {
           delete presenceRef.current[tab];
         }
       });
       setActiveTabs(Object.keys(presenceRef.current).length);
-    }, 2000);
+      checkAndSetLeader(); // ← tab band hone pe bhi check karo
+    }, 1000);
 
     channel.onmessage = (event) => {
       const data = event.data;
@@ -57,12 +106,42 @@ function AppProvider({ children }) {
         presenceRef.current[data.id] = Date.now();
         channel.postMessage({ type: "HEARTBEAT", id, timestamp: Date.now() });
         setActiveTabs(Object.keys(presenceRef.current).length);
+
+        // 100ms baad check karo - presenceRef update hone do
+        setTimeout(() => {
+          const amILeader = checkAndSetLeader();
+          // agar main leader hun toh naye tab ko state bhejo
+          if (amILeader) {
+            channel.postMessage({
+              type: "STATE_SYNC",
+              targetId: data.id,
+              ...stateRef.current,
+            });
+          }
+        }, 300);
         return;
       }
 
       if (data.type === "HEARTBEAT") {
         presenceRef.current[data.id] = data.timestamp;
         setActiveTabs(Object.keys(presenceRef.current).length);
+        checkAndSetLeader(); // ← heartbeat pe bhi leader check karo
+        return;
+      }
+
+      // naya tab leader se state leta hai
+      if (data.type === "STATE_SYNC" && data.targetId === id) {
+        isSyncingRef.current = true;
+        setAmount(data.amount);
+        setRate(data.rate);
+        setTenure(data.tenure);
+        setMode(data.mode);
+        setView(data.view);
+        setTheme(data.theme);
+        setPrepayments(data.prepayments ?? []);
+        setTimeout(() => {
+          isSyncingRef.current = false;
+        }, 100);
         return;
       }
 
@@ -77,7 +156,7 @@ function AppProvider({ children }) {
         setPrepayments(data.prepayments ?? []);
         setTimeout(() => {
           isSyncingRef.current = false;
-        }, 100); // ← change 0 to 100
+        }, 100);
         return;
       }
     };
@@ -92,7 +171,7 @@ function AppProvider({ children }) {
 
   useEffect(() => {
     if (!channelRef.current) return;
-    if (isSyncingRef.current) return; // ← SKIP broadcast if we just received one
+    if (isSyncingRef.current) return;
     channelRef.current.postMessage({
       type: "STATE_UPDATE",
       amount,
@@ -108,22 +187,17 @@ function AppProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
-        amount,
-        setAmount,
-        rate,
-        setRate,
-        tenure,
-        setTenure,
-        mode,
-        setMode,
-        view,
-        setView,
-        theme,
-        setTheme,
-        prepayments,
-        setPrepayments,
+        amount, setAmount,
+        rate, setRate,
+        tenure, setTenure,
+        mode, setMode,
+        view, setView,
+        theme, setTheme,
+        prepayments, setPrepayments,
         activeTabs,
         tabId,
+        isLeader,
+        pushHistory,
       }}
     >
       {children}
