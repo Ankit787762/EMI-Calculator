@@ -8,7 +8,7 @@ A modern EMI Calculator built with **Next.js 14**, featuring real-time loan anal
 
 ## 🚀 Live Demo
 
-🔗 https://your-vercel-link.vercel.app
+🔗 https://emi-calculator-psi-ashy.vercel.app/
 
 ## 📂 GitHub Repository
 
