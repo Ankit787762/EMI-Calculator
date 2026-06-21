@@ -200,7 +200,7 @@ Where:
 
 
 - GitHub: https://github.com/Ankit787762
-- LinkedIn: www.linkedin.com/in/ankit-swami-612971283
+- LinkedIn: https://www.linkedin.com/in/ankit-swami-612971283
 
 
 
