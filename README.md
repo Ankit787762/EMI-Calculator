@@ -1,8 +1,8 @@
-# 💰 EMI Calculator with Shared Workspace
+#  EMI Calculator with Shared Workspace
 
 A modern EMI Calculator built with **Next.js 14**, featuring real-time loan analysis, amortization schedules, loan comparison, and cross-tab synchronization using the **BroadcastChannel API**.
 
-<img width="1872" height="910" alt="image" src="https://github.com/user-attachments/assets/6bd22994-d657-4245-b1c4-140410d6a301" />
+<img width="1882" height="915" alt="image" src="https://github.com/user-attachments/assets/6192e1fc-4b95-4ead-a0ab-b40c8858c114" />
 
 ---
 
@@ -72,11 +72,11 @@ This project was built as part of a Frontend Internship Assignment to demonstrat
 
 ### Loan Comparison Mode
 
-<img width="1876" height="898" alt="image" src="https://github.com/user-attachments/assets/9a12079d-e8ea-4d97-a6fa-89ea58b2b618" />
+<img width="1866" height="895" alt="image" src="https://github.com/user-attachments/assets/1eb3b984-1023-4d50-bee8-8a8f64bd4dce" />
 
 ### Amortization Schedule
 
-<img width="1842" height="916" alt="image" src="https://github.com/user-attachments/assets/7e5dffe8-0079-49d2-9f9a-1c9218b7c295" />
+<img width="1855" height="920" alt="image" src="https://github.com/user-attachments/assets/1d675902-b4a7-42c1-9d04-8be08b81c1f3" />
 
 ---
 
