@@ -1,11 +1,9 @@
 import { useEffect } from "react";
 
 function useURLState(amount, rate, tenure, setAmount, setRate, setTenure) {
-  
-  // Jab page load ho, URL se values lo
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    
+
     if (params.get("amount")) {
       setAmount(Number(params.get("amount")));
     }
@@ -17,7 +15,6 @@ function useURLState(amount, rate, tenure, setAmount, setRate, setTenure) {
     }
   }, []);
 
-  // Jab bhi amount/rate/tenure badle, URL update karo
   useEffect(() => {
     const params = new URLSearchParams();
     params.set("amount", amount);

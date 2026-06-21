@@ -8,7 +8,7 @@ export const AppContext = createContext();
 
 function AppProvider({ children }) {
   const [amount, setAmount] = useState(1500000);
-  const [rate, setRate] = useState(2);
+  const [rate, setRate] = useState(11);
   const [tenure, setTenure] = useState(36);
   const [mode, setMode] = useState("single");
   const [view, setView] = useState("table");
@@ -16,18 +16,17 @@ function AppProvider({ children }) {
   const [prepayments, setPrepayments] = useState([]);
   const [activeTabs, setActiveTabs] = useState(1);
   const [tabId, setTabId] = useState("");
-  const [isLeader, setIsLeader] = useState(false); // ← leader state
+  const [isLeader, setIsLeader] = useState(false);
 
   const channelRef = useRef(null);
   const presenceRef = useRef({});
   const isSyncingRef = useRef(false);
   const historyRef = useRef([]);
   const stateRef = useRef({});
-  const myIdRef = useRef(""); // ← apna id ref mein bhi rakkho
+  const myIdRef = useRef("");
 
-   useURLState(amount, rate, tenure, setAmount, setRate, setTenure);
+  useURLState(amount, rate, tenure, setAmount, setRate, setTenure);
 
-  // stateRef updated rakkho
   useEffect(() => {
     stateRef.current = { amount, rate, tenure, mode, view, theme, prepayments };
   }, [amount, rate, tenure, mode, view, theme, prepayments]);
@@ -36,7 +35,6 @@ function AppProvider({ children }) {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  // history save karo
   function pushHistory() {
     historyRef.current.push({ ...stateRef.current });
     if (historyRef.current.length > 50) {
@@ -44,7 +42,6 @@ function AppProvider({ children }) {
     }
   }
 
-  // leader check function
   function checkAndSetLeader() {
     const allTabIds = Object.keys(presenceRef.current).sort();
     const amILeader = allTabIds[0] === myIdRef.current;
@@ -52,7 +49,6 @@ function AppProvider({ children }) {
     return amILeader;
   }
 
-  // Bonus 2 - Undo
   useUndoSync(
     historyRef,
     isSyncingRef,
@@ -62,16 +58,15 @@ function AppProvider({ children }) {
     setMode,
     setView,
     setTheme,
-    setPrepayments
+    setPrepayments,
   );
 
   useEffect(() => {
-    // 2 alag variables banao
-const id = `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`; // sorting ke liye
-const shortId = Math.random().toString(36).slice(2, 6).toUpperCase(); // display ke liye
+    const id = `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+    const shortId = Math.random().toString(36).slice(2, 6).toUpperCase();
 
-myIdRef.current = id;
-setTabId(shortId); // ← UI mein short id dikhao
+    myIdRef.current = id;
+    setTabId(shortId); //  UI mein short id dikhao
 
     const channel = new BroadcastChannel("loan-sync");
     channelRef.current = channel;
@@ -79,7 +74,7 @@ setTabId(shortId); // ← UI mein short id dikhao
     presenceRef.current[id] = Date.now();
     setActiveTabs(1);
 
-    // pehla tab khula - 200ms baad check karo leader kaun
+    // pehla tab khula 200ms baad check karo leader kaun
     setTimeout(() => {
       checkAndSetLeader();
     }, 200);
@@ -99,7 +94,7 @@ setTabId(shortId); // ← UI mein short id dikhao
         }
       });
       setActiveTabs(Object.keys(presenceRef.current).length);
-      checkAndSetLeader(); // ← tab band hone pe bhi check karo
+      checkAndSetLeader(); // tab band hone pe bhi check karo
     }, 1000);
 
     channel.onmessage = (event) => {
@@ -110,7 +105,7 @@ setTabId(shortId); // ← UI mein short id dikhao
         channel.postMessage({ type: "HEARTBEAT", id, timestamp: Date.now() });
         setActiveTabs(Object.keys(presenceRef.current).length);
 
-        // 100ms baad check karo - presenceRef update hone do
+        // 100ms baad check karo presenceRef update hone do
         setTimeout(() => {
           const amILeader = checkAndSetLeader();
           // agar main leader hun toh naye tab ko state bhejo
@@ -128,7 +123,7 @@ setTabId(shortId); // ← UI mein short id dikhao
       if (data.type === "HEARTBEAT") {
         presenceRef.current[data.id] = data.timestamp;
         setActiveTabs(Object.keys(presenceRef.current).length);
-        checkAndSetLeader(); // ← heartbeat pe bhi leader check karo
+        checkAndSetLeader(); // heartbeat pe bhi leader check karo
         return;
       }
 
@@ -190,13 +185,20 @@ setTabId(shortId); // ← UI mein short id dikhao
   return (
     <AppContext.Provider
       value={{
-        amount, setAmount,
-        rate, setRate,
-        tenure, setTenure,
-        mode, setMode,
-        view, setView,
-        theme, setTheme,
-        prepayments, setPrepayments,
+        amount,
+        setAmount,
+        rate,
+        setRate,
+        tenure,
+        setTenure,
+        mode,
+        setMode,
+        view,
+        setView,
+        theme,
+        setTheme,
+        prepayments,
+        setPrepayments,
         activeTabs,
         tabId,
         isLeader,

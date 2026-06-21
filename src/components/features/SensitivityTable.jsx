@@ -7,7 +7,6 @@ import calculateEMI from "@/utils/emi";
 function SensitivityTable() {
   const { amount, rate, tenure } = useContext(AppContext);
 
-  // Example ranges similar to screenshot
   const rates = [];
 
   for (let i = -3; i <= 3; i++) {
@@ -47,7 +46,6 @@ function SensitivityTable() {
 
   return (
     <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
-      {/* Header */}
       <div className="px-5 py-3 border-b border-gray-200">
         <h2 className="text-lg font-semibold text-gray-900">
           Sensitivity Analysis

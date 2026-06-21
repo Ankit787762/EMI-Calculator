@@ -7,7 +7,7 @@ function ModeTabs() {
   const { mode, setMode } = useContext(AppContext);
 
   return (
-   <div className="bg-white rounded-xl p-1 shadow flex items-center justify-around h-12">
+    <div className="bg-white rounded-xl p-1 shadow flex items-center justify-around h-12">
       <button
         onClick={() => setMode("single")}
         className={`px-3 py-2 text-sm  rounded-lg transition-all duration-200 ${

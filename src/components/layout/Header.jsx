@@ -4,12 +4,12 @@ import { AppContext } from "@/context/AppContext";
 import { useContext } from "react";
 
 function Header() {
-  // isLeader add kiya
-  const { activeTabs, tabId, theme, setTheme, isLeader } = useContext(AppContext);
+  const { activeTabs, tabId, theme, setTheme, isLeader } =
+    useContext(AppContext);
 
   return (
     <header className="bg-white rounded-xl shadow p-3 mb-4">
-     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         <div>
           <h1 className="text-xl font-bold text-blue-600">EMI Calculator</h1>
           <p className="text-xs text-gray-500">
@@ -23,7 +23,6 @@ function Header() {
               {tabId ? `Tab ${tabId}` : "Tab"}
             </span>
 
-            {/* LEADER ya Active badge */}
             {isLeader ? (
               <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
                 LEADER

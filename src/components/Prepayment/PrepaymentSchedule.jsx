@@ -17,13 +17,11 @@ function PrepaymentSchedule({ schedule }) {
   const fmt = (n) => "₹" + Math.round(n).toLocaleString("en-IN");
   const breakEvenMonth =
     schedule.findIndex((row) => row.principal >= row.interest) + 1;
- 
 
   if (!schedule || schedule.length === 0) return null;
 
   return (
     <div className="bg-white rounded-xl shadow p-5">
-      {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div>
           <h2 className="text-base font-semibold text-gray-900">
@@ -42,7 +40,6 @@ function PrepaymentSchedule({ schedule }) {
         </button>
       </div>
 
-      {/* Toggle buttons */}
       <div className="flex items-center gap-2 mb-3">
         <button
           onClick={() => setActiveView("table")}
@@ -106,7 +103,7 @@ function PrepaymentSchedule({ schedule }) {
                       {row.month}
                       {row.month === breakEvenMonth && (
                         <span className="ml-1 bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded">
-                          be
+                          B/E
                         </span>
                       )}
                     </td>
@@ -134,27 +131,27 @@ function PrepaymentSchedule({ schedule }) {
               {Math.min(currPage * rowsPerPage, schedule.length)} of{" "}
               {schedule.length} months
             </span>
-             <div className="flex items-center gap-2">
-          <button
-            data-btn="gray"
-            onClick={() => setCurrPage((prev) => Math.max(prev - 1, 1))}
-            className="px-3 py-1 border rounded"
-          >
-            ‹ Prev
-          </button>
-          <span>
-            {currPage} / {totalPages}
-          </span>
-          <button
-            data-btn="gray"
-            onClick={() =>
-              setCurrPage((prev) => Math.min(prev + 1, totalPages))
-            }
-            className="px-3 py-1 border rounded"
-          >
-            Next ›
-          </button>
-        </div>
+            <div className="flex items-center gap-2">
+              <button
+                data-btn="gray"
+                onClick={() => setCurrPage((prev) => Math.max(prev - 1, 1))}
+                className="px-3 py-1 border rounded"
+              >
+                ‹ Prev
+              </button>
+              <span>
+                {currPage} / {totalPages}
+              </span>
+              <button
+                data-btn="gray"
+                onClick={() =>
+                  setCurrPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                className="px-3 py-1 border rounded"
+              >
+                Next ›
+              </button>
+            </div>
           </div>
         </>
       )}

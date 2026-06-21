@@ -2,7 +2,14 @@
 
 import calculateEMI from "@/utils/emi";
 
-function ScenarioCard({ scenario, index, onChange, onRemove, isBest, canRemove }) {
+function ScenarioCard({
+  scenario,
+  index,
+  onChange,
+  onRemove,
+  isBest,
+  canRemove,
+}) {
   const emi = calculateEMI(scenario.amount, scenario.rate, scenario.tenure);
   const totalPayable = emi * scenario.tenure;
   const totalInterest = totalPayable - scenario.amount;
@@ -10,9 +17,10 @@ function ScenarioCard({ scenario, index, onChange, onRemove, isBest, canRemove }
   const fmt = (n) => "₹" + Math.round(n).toLocaleString("en-IN");
 
   return (
-    <div className={`relative bg-white rounded-xl p-4 flex-1 min-w-[260px] border-2 transition-all
-      ${isBest ? "border-green-500 bg-green-50" : "border-gray-200"}`}>
-
+    <div
+      className={`relative bg-white rounded-xl p-4 flex-1 min-w-[260px] border-2 transition-all
+      ${isBest ? "border-green-500 bg-green-50" : "border-gray-200"}`}
+    >
       {isBest && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs px-3 py-0.5 rounded-full font-semibold whitespace-nowrap">
           BEST VALUE
@@ -24,8 +32,10 @@ function ScenarioCard({ scenario, index, onChange, onRemove, isBest, canRemove }
           {scenario.name || `Scenario ${index + 1}`}
         </h3>
         {canRemove && (
-          <button onClick={onRemove}
-            className="text-gray-400 hover:text-red-500 text-xl font-bold leading-none">
+          <button
+            onClick={onRemove}
+            className="text-gray-400 hover:text-red-500 text-xl font-bold leading-none"
+          >
             ×
           </button>
         )}
@@ -40,16 +50,26 @@ function ScenarioCard({ scenario, index, onChange, onRemove, isBest, canRemove }
             <input
               type="number"
               value={scenario.amount}
-              onChange={(e) => onChange({ ...scenario, amount: Number(e.target.value) })}
+              onChange={(e) =>
+                onChange({ ...scenario, amount: Number(e.target.value) })
+              }
               className="w-24 text-sm text-right outline-none bg-transparent"
             />
           </div>
         </div>
-        <input type="range" min="10000" max="5000000" value={scenario.amount}
-          onChange={(e) => onChange({ ...scenario, amount: Number(e.target.value) })}
-          className="w-full" />
+        <input
+          type="range"
+          min="10000"
+          max="5000000"
+          value={scenario.amount}
+          onChange={(e) =>
+            onChange({ ...scenario, amount: Number(e.target.value) })
+          }
+          className="w-full"
+        />
         <div className="flex justify-between text-xs text-gray-400 mt-0.5">
-          <span>₹10k</span><span>₹50.00L</span>
+          <span>₹10k</span>
+          <span>₹50.00L</span>
         </div>
       </div>
 
@@ -62,17 +82,28 @@ function ScenarioCard({ scenario, index, onChange, onRemove, isBest, canRemove }
               type="number"
               value={scenario.rate}
               step="0.1"
-              onChange={(e) => onChange({ ...scenario, rate: Number(e.target.value) })}
+              onChange={(e) =>
+                onChange({ ...scenario, rate: Number(e.target.value) })
+              }
               className="w-16 text-sm text-right outline-none bg-transparent"
             />
             <span className="text-xs text-gray-400">%</span>
           </div>
         </div>
-        <input type="range" min="1" max="36" step="0.1" value={scenario.rate}
-          onChange={(e) => onChange({ ...scenario, rate: Number(e.target.value) })}
-          className="w-full" />
+        <input
+          type="range"
+          min="1"
+          max="36"
+          step="0.1"
+          value={scenario.rate}
+          onChange={(e) =>
+            onChange({ ...scenario, rate: Number(e.target.value) })
+          }
+          className="w-full"
+        />
         <div className="flex justify-between text-xs text-gray-400 mt-0.5">
-          <span>1%</span><span>36%</span>
+          <span>1%</span>
+          <span>36%</span>
         </div>
       </div>
 
@@ -84,17 +115,27 @@ function ScenarioCard({ scenario, index, onChange, onRemove, isBest, canRemove }
             <input
               type="number"
               value={scenario.tenure}
-              onChange={(e) => onChange({ ...scenario, tenure: Number(e.target.value) })}
+              onChange={(e) =>
+                onChange({ ...scenario, tenure: Number(e.target.value) })
+              }
               className="w-16 text-sm text-right outline-none bg-transparent"
             />
             <span className="text-xs text-gray-400">mo</span>
           </div>
         </div>
-        <input type="range" min="1" max="84" value={scenario.tenure}
-          onChange={(e) => onChange({ ...scenario, tenure: Number(e.target.value) })}
-          className="w-full" />
+        <input
+          type="range"
+          min="1"
+          max="84"
+          value={scenario.tenure}
+          onChange={(e) =>
+            onChange({ ...scenario, tenure: Number(e.target.value) })
+          }
+          className="w-full"
+        />
         <div className="flex justify-between text-xs text-gray-400 mt-0.5">
-          <span>1 mo</span><span>7 yr</span>
+          <span>1 mo</span>
+          <span>7 yr</span>
         </div>
       </div>
 
@@ -106,7 +147,9 @@ function ScenarioCard({ scenario, index, onChange, onRemove, isBest, canRemove }
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-gray-500">Total Interest</span>
-          <span className="font-semibold text-gray-800">{fmt(totalInterest)}</span>
+          <span className="font-semibold text-gray-800">
+            {fmt(totalInterest)}
+          </span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-gray-500">Total Payable</span>

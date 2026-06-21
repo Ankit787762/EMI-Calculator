@@ -1,19 +1,24 @@
 import { useEffect } from "react";
 
-function useUndoSync(historyRef, isSyncingRef, setAmount, setRate, setTenure, setMode, setView, setTheme, setPrepayments) {
-
+function useUndoSync(
+  historyRef,
+  isSyncingRef,
+  setAmount,
+  setRate,
+  setTenure,
+  setMode,
+  setView,
+  setTheme,
+  setPrepayments,
+) {
   useEffect(() => {
-    
     function handleKeyPress(e) {
-      // Ctrl+Z ya Cmd+Z check karo
       const isUndo = (e.ctrlKey || e.metaKey) && e.key === "z";
       if (!isUndo) return;
 
-      // History se last state nikalo
       const previousState = historyRef.current.pop();
-      if (!previousState) return; // kuch nahi hai undo karne ko
+      if (!previousState) return;
 
-      // Purani state wapas lagao
       isSyncingRef.current = false;
       setAmount(previousState.amount);
       setRate(previousState.rate);

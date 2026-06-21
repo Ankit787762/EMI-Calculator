@@ -16,8 +16,9 @@ function CompareMode() {
   const getTotal = (s) => calculateEMI(s.amount, s.rate, s.tenure) * s.tenure;
 
   const bestIndex = scenarios.reduce(
-    (bestIdx, s, i) => (getTotal(s) < getTotal(scenarios[bestIdx]) ? i : bestIdx),
-    0
+    (bestIdx, s, i) =>
+      getTotal(s) < getTotal(scenarios[bestIdx]) ? i : bestIdx,
+    0,
   );
 
   const updateScenario = (index, updated) => {
@@ -39,10 +40,11 @@ function CompareMode() {
 
   return (
     <div className="bg-white rounded-xl shadow p-5">
-      {/* Header */}
       <div className="flex justify-between items-start mb-1">
         <div>
-          <h2 className="text-base font-semibold text-gray-900">Compare Scenarios</h2>
+          <h2 className="text-base font-semibold text-gray-900">
+            Compare Scenarios
+          </h2>
           <p className="text-xs text-gray-500 mt-0.5">
             Configure up to 3 scenarios — the lowest total cost is highlighted.
           </p>
@@ -73,7 +75,8 @@ function CompareMode() {
       </div>
 
       <p className="text-center text-xs text-gray-400 mt-6">
-        Open this page in a second tab — inputs, theme, and mode stay in sync via the BroadcastChannel API.
+        Open this page in a second tab — inputs, theme, and mode stay in sync
+        via the BroadcastChannel API.
       </p>
     </div>
   );

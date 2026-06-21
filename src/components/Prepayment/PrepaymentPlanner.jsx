@@ -26,7 +26,14 @@ function buildSchedule(amount, rate, tenure, prepayments) {
     }
 
     if (balance === 0) {
-      schedule.push({ month, emi: 0, principal: 0, interest: 0, prepayment: prepMap[month] || 0, balance: 0 });
+      schedule.push({
+        month,
+        emi: 0,
+        principal: 0,
+        interest: 0,
+        prepayment: prepMap[month] || 0,
+        balance: 0,
+      });
       break;
     }
 
@@ -51,7 +58,8 @@ function buildSchedule(amount, rate, tenure, prepayments) {
 }
 
 function PrepaymentPlanner() {
-  const { amount, rate, tenure, prepayments, setPrepayments } = useContext(AppContext);
+  const { amount, rate, tenure, prepayments, setPrepayments } =
+    useContext(AppContext);
 
   const [inputMonth, setInputMonth] = useState(12);
   const [inputAmount, setInputAmount] = useState(100000);
@@ -80,21 +88,25 @@ function PrepaymentPlanner() {
 
   return (
     <div className="space-y-4">
-      {/* Top Section */}
       <div className="bg-white rounded-xl shadow p-5">
-        <h2 className="text-base font-semibold text-gray-900">Prepayment Planner</h2>
+        <h2 className="text-base font-semibold text-gray-900">
+          Prepayment Planner
+        </h2>
         <p className="text-xs text-gray-500 mt-0.5 mb-4">
           Schedule lump-sum payments and see interest saved
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Left: Add Prepayment */}
           <div className="border border-gray-200 rounded-xl p-4">
-            <p className="text-xs font-medium text-gray-600 mb-3">Add a one-time prepayment</p>
+            <p className="text-xs font-medium text-gray-600 mb-3">
+              Add a one-time prepayment
+            </p>
 
             <div className="flex flex-col sm:flex-row gap-2 mb-3">
               <div className="flex-1">
-                <label className="text-xs text-gray-500 mb-1 block">Month</label>
+                <label className="text-xs text-gray-500 mb-1 block">
+                  Month
+                </label>
                 <input
                   type="number"
                   value={inputMonth}
@@ -105,7 +117,9 @@ function PrepaymentPlanner() {
                 />
               </div>
               <div className="flex-1">
-                <label className="text-xs text-gray-500 mb-1 block">Amount (₹)</label>
+                <label className="text-xs text-gray-500 mb-1 block">
+                  Amount (₹)
+                </label>
                 <input
                   type="number"
                   value={inputAmount}
@@ -131,17 +145,24 @@ function PrepaymentPlanner() {
             ) : (
               <div className="space-y-2 mt-2">
                 {prepayments.map((p, i) => (
-                  <div key={i} className="flex justify-between items-center text-sm border border-gray-100 rounded-lg px-3 py-2">
+                  <div
+                    key={i}
+                    className="flex justify-between items-center text-sm border border-gray-100 rounded-lg px-3 py-2"
+                  >
                     <span className="text-gray-600">Month {p.month}</span>
                     <span className="font-medium">{fmt(p.amount)}</span>
-                    <button onClick={() => removePrepayment(i)} className="text-red-400 hover:text-red-600 text-lg leading-none">×</button>
+                    <button
+                      onClick={() => removePrepayment(i)}
+                      className="text-red-400 hover:text-red-600 text-lg leading-none"
+                    >
+                      ×
+                    </button>
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Right: Impact Summary */}
           <div className="border border-gray-200 rounded-xl p-4">
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
               Prepayment Impact
@@ -149,7 +170,9 @@ function PrepaymentPlanner() {
 
             <div className="flex justify-between text-sm mb-2">
               <span className="text-gray-500">Interest Saved</span>
-              <span className="font-bold text-green-600">{fmt(interestSaved)}</span>
+              <span className="font-bold text-green-600">
+                {fmt(interestSaved)}
+              </span>
             </div>
 
             <div className="flex justify-between text-sm mb-4">
@@ -163,29 +186,38 @@ function PrepaymentPlanner() {
               <div>
                 <p className="text-xs text-gray-400">Original Tenure</p>
                 <p className="text-sm font-semibold mt-0.5">
-                  {Math.floor(tenure / 12) > 0 ? `${Math.floor(tenure / 12)} yr` : ""} {tenure % 12 > 0 ? `${tenure % 12} mo` : ""}
+                  {Math.floor(tenure / 12) > 0
+                    ? `${Math.floor(tenure / 12)} yr`
+                    : ""}{" "}
+                  {tenure % 12 > 0 ? `${tenure % 12} mo` : ""}
                 </p>
               </div>
               <div>
                 <p className="text-xs text-gray-400">New Tenure</p>
                 <p className="text-sm font-semibold text-blue-600 mt-0.5">
-                  {Math.floor(newTenure / 12) > 0 ? `${Math.floor(newTenure / 12)} yr` : ""} {newTenure % 12 > 0 ? `${newTenure % 12} mo` : ""}
+                  {Math.floor(newTenure / 12) > 0
+                    ? `${Math.floor(newTenure / 12)} yr`
+                    : ""}{" "}
+                  {newTenure % 12 > 0 ? `${newTenure % 12} mo` : ""}
                 </p>
               </div>
               <div>
                 <p className="text-xs text-gray-400">Original Interest</p>
-                <p className="text-sm font-semibold mt-0.5">{fmt(originalInterest)}</p>
+                <p className="text-sm font-semibold mt-0.5">
+                  {fmt(originalInterest)}
+                </p>
               </div>
               <div>
                 <p className="text-xs text-gray-400">New Interest</p>
-                <p className="text-sm font-semibold text-blue-600 mt-0.5">{fmt(newInterest)}</p>
+                <p className="text-sm font-semibold text-blue-600 mt-0.5">
+                  {fmt(newInterest)}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Adjusted Schedule */}
       <PrepaymentSchedule schedule={schedule} />
     </div>
   );

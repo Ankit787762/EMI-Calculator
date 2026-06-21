@@ -1,10 +1,4 @@
-
-function RatioBar({
-  Principalshare,
-  Interestshare,
-  amount,
-  totalInterest,
-}) {
+function RatioBar({ Principalshare, Interestshare, amount, totalInterest }) {
   return (
     <div className="px-4 pb-4">
       <div className="flex justify-between mb-2">

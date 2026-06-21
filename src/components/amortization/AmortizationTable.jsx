@@ -12,15 +12,15 @@ function AmortizationTable() {
   let balance = amount;
   const schedule = [];
 
- for (let month = 1; month <= tenure; month++) {
-  const interest = (balance * rate) / 12 / 100;
-  const principal = emi - interest;
-  balance = Math.max(balance - principal, 0);
-  schedule.push({ month, emi, principal, interest, balance });
-}
+  for (let month = 1; month <= tenure; month++) {
+    const interest = (balance * rate) / 12 / 100;
+    const principal = emi - interest;
+    balance = Math.max(balance - principal, 0);
+    schedule.push({ month, emi, principal, interest, balance });
+  }
 
-const breakEvenMonth =
-  schedule.findIndex((row) => row.principal >= row.interest) + 1;
+  const breakEvenMonth =
+    schedule.findIndex((row) => row.principal >= row.interest) + 1;
 
   const [currPage, setCurrPage] = useState(1);
   const rowsPerPage = 12;
@@ -32,7 +32,6 @@ const breakEvenMonth =
 
   return (
     <div className="bg-white rounded-xl shadow p-5">
-      {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div>
           <h2 className="text-base font-semibold text-gray-900">
@@ -51,7 +50,6 @@ const breakEvenMonth =
         </button>
       </div>
 
-      {/* Controls */}
       <div className="flex items-center gap-3 mb-4">
         <button
           onClick={() => setView("table")}
@@ -81,7 +79,6 @@ const breakEvenMonth =
         </span>
       </div>
 
-      {/* Table / Chart */}
       {view === "table" && (
         <div className="overflow-x-auto rounded-xl border border-gray-100">
           <table className="w-full text-sm">
@@ -120,7 +117,7 @@ const breakEvenMonth =
                       {row.month}
                       {row.month === breakEvenMonth && (
                         <span className="bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded font-medium">
-                          b/e
+                          B/E
                         </span>
                       )}
                     </div>
@@ -147,7 +144,6 @@ const breakEvenMonth =
 
       {view === "chart" && <ChartView schedule={schedule} />}
 
-      {/* Footer */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-3 text-xs gap-2 text-gray-500">
         <span>
           Showing {startIndex + 1}–

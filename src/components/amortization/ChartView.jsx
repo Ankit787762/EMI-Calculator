@@ -43,9 +43,7 @@ function ChartView({ schedule }) {
           />
 
           <Tooltip
-            formatter={(value) =>
-              `₹${Number(value).toLocaleString("en-IN")}`
-            }
+            formatter={(value) => `₹${Number(value).toLocaleString("en-IN")}`}
           />
 
           <Legend />

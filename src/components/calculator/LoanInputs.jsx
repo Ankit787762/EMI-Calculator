@@ -3,8 +3,9 @@
 import { useContext } from "react";
 import { AppContext } from "@/context/AppContext";
 
- function LoanInputs() {
-    const { amount, setAmount, rate, setRate, tenure, setTenure, pushHistory } = useContext(AppContext);
+function LoanInputs() {
+  const { amount, setAmount, rate, setRate, tenure, setTenure, pushHistory } =
+    useContext(AppContext);
 
   return (
     <div className="bg-white rounded-xl shadow p-4 min-h-[540px]">
@@ -14,7 +15,6 @@ import { AppContext } from "@/context/AppContext";
         Adjust and watch every tab update
       </p>
 
-      
       <div className="mb-5">
         <div className="flex justify-between items-center mb-2">
           <label className="text-sm font-medium text-gray-600">
@@ -24,7 +24,10 @@ import { AppContext } from "@/context/AppContext";
           <input
             type="number"
             value={amount}
-            onChange={(e) => {pushHistory();setAmount(Number(e.target.value));}}
+            onChange={(e) => {
+              pushHistory();
+              setAmount(Number(e.target.value));
+            }}
             className="w-20 sm:w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
           />
         </div>
@@ -34,7 +37,10 @@ import { AppContext } from "@/context/AppContext";
           min="10000"
           max="5000000"
           value={amount}
-          onChange={(e) =>{pushHistory(); setAmount(Number(e.target.value));}}
+          onChange={(e) => {
+            pushHistory();
+            setAmount(Number(e.target.value));
+          }}
           className="w-full"
         />
 
@@ -53,7 +59,10 @@ import { AppContext } from "@/context/AppContext";
           <input
             type="number"
             value={rate}
-            onChange={(e) =>{pushHistory(); setRate(Number(e.target.value));}}
+            onChange={(e) => {
+              pushHistory();
+              setRate(Number(e.target.value));
+            }}
             className="w-20 sm:w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
           />
         </div>
@@ -63,26 +72,30 @@ import { AppContext } from "@/context/AppContext";
           min="1"
           max="36"
           value={rate}
-          onChange={(e) =>{pushHistory(); setRate(Number(e.target.value));}}
+          onChange={(e) => {
+            pushHistory();
+            setRate(Number(e.target.value));
+          }}
           className="w-full"
         />
 
         <div className="flex justify-between text-xs text-gray-500 mt-1">
           <span>1%</span>
-          <span>30%</span>
+          <span>36%</span>
         </div>
       </div>
 
       <div className="mb-5">
         <div className="flex justify-between items-center mb-2">
-          <label className="text-sm font-medium text-gray-600">
-            Tenure
-          </label>
+          <label className="text-sm font-medium text-gray-600">Tenure</label>
 
           <input
             type="number"
             value={tenure}
-            onChange={(e) =>{pushHistory(); setTenure(Number(e.target.value));}}
+            onChange={(e) => {
+              pushHistory();
+              setTenure(Number(e.target.value));
+            }}
             className="w-20 sm:w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
           />
         </div>
@@ -92,13 +105,16 @@ import { AppContext } from "@/context/AppContext";
           min="1"
           max="120"
           value={tenure}
-          onChange={(e) =>{pushHistory(); setTenure(Number(e.target.value));}}
+          onChange={(e) => {
+            pushHistory();
+            setTenure(Number(e.target.value));
+          }}
           className="w-full"
         />
 
         <div className="flex justify-between text-xs text-gray-500 mt-1">
           <span>1</span>
-          <span>7yr</span>
+          <span>10yr</span>
         </div>
       </div>
     </div>
