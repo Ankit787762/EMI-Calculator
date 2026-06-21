@@ -17,6 +17,7 @@ function AppProvider({ children }) {
   const [activeTabs, setActiveTabs] = useState(1);
   const [tabId, setTabId] = useState("");
   const [isLeader, setIsLeader] = useState(false);
+  const [tabNumber, setTabNumber] = useState(1);
 
   const channelRef = useRef(null);
   const presenceRef = useRef({});
@@ -46,6 +47,10 @@ function AppProvider({ children }) {
     const allTabIds = Object.keys(presenceRef.current).sort();
     const amILeader = allTabIds[0] === myIdRef.current;
     setIsLeader(amILeader);
+
+    const myPosition = allTabIds.indexOf(myIdRef.current) + 1;
+    setTabNumber(myPosition);
+
     return amILeader;
   }
 
@@ -202,6 +207,7 @@ function AppProvider({ children }) {
         activeTabs,
         tabId,
         isLeader,
+        tabNumber,
         pushHistory,
       }}
     >

@@ -4,7 +4,7 @@ import { AppContext } from "@/context/AppContext";
 import { useContext } from "react";
 
 function Header() {
-  const { activeTabs, tabId, theme, setTheme, isLeader } =
+  const { activeTabs, tabId, tabNumber, theme, setTheme, isLeader } =
     useContext(AppContext);
 
   return (
@@ -20,7 +20,7 @@ function Header() {
         <div className="flex items-center gap-2 flex-wrap">
           <div className="border border-gray-200 rounded-full px-3 py-1 flex items-center gap-2">
             <span className="text-sm font-medium">
-              {tabId ? `Tab ${tabId}` : "Tab"}
+              Tab {String(tabNumber).padStart(2, "0")}
             </span>
 
             {isLeader ? (
