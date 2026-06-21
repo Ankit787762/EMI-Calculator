@@ -18,13 +18,16 @@ A modern EMI Calculator built with **Next.js 14**, featuring real-time loan anal
 
 ## 🎯 Why This Project?
 
-This project was built as part of a Frontend Internship Assignment to demonstrate:
+This project demonstrates:
 
-- Advanced React state management
-- Cross-tab communication using the BroadcastChannel API
-- Financial calculations and amortization logic
-- Reusable component architecture
-- Modern Next.js development practices
+* Advanced React state management using Context API
+* Cross-tab communication with the BroadcastChannel API
+* Financial calculations and amortization logic
+* URL-based state persistence and shareable scenarios
+* Reusable and scalable component architecture
+* Data visualization using Recharts
+* Modern development practices with Next.js 14
+
 
 ---
 
@@ -156,7 +159,7 @@ src
 ### Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Ankit787762/EMI-Calculator.git
 cd emi-calculator
 ```
 
@@ -188,12 +191,6 @@ Where:
 - **r** = Monthly Interest Rate
 - **n** = Loan Tenure (Months)
 
-The application also generates:
-
-- Amortization Schedule
-- Interest vs Principal Breakdown
-- Break-Even Analysis
-- Prepayment Impact Analysis
 
 ---
 
