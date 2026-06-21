@@ -92,7 +92,7 @@ function PrepaymentPlanner() {
           <div className="border border-gray-200 rounded-xl p-4">
             <p className="text-xs font-medium text-gray-600 mb-3">Add a one-time prepayment</p>
 
-            <div className="flex gap-2 mb-3">
+            <div className="flex flex-col sm:flex-row gap-2 mb-3">
               <div className="flex-1">
                 <label className="text-xs text-gray-500 mb-1 block">Month</label>
                 <input

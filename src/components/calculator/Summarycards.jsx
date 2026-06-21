@@ -21,29 +21,29 @@ import RatioBar from "./RatioBar";
       </div>
 
       {/* Cards */}
-     <div className="grid grid-cols-3 gap-3 p-4">
-        <div className="border rounded-xl p-4">
-          <p className="text-xs text-gray-500 uppercase">Monthly EMI</p>
+   
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4">
+  <div className="border rounded-xl p-4">
+    <p className="text-xs text-gray-500 uppercase">Monthly EMI</p>
+    <h3 className="text-xl font-bold text-blue-600 mt-2 break-all">
+      ₹{emi.toFixed(2)}
+    </h3>
+  </div>
 
-          <h3 className="text-xl font-bold text-blue-600 mt-2">
-            ₹{emi.toFixed(2)}
-          </h3>
-        </div>
+  <div className="border rounded-xl p-4">
+    <p className="text-xs text-gray-500 uppercase">Total Interest</p>
+    <h3 className="text-xl font-bold mt-2 break-all">
+      ₹{totalInterest.toFixed(2)}
+    </h3>
+  </div>
 
-        <div className="border rounded-xl p-4">
-          <p className="text-xs text-gray-500 uppercase">Total Interest</p>
-
-          <h3 className="text-xl font-bold mt-2">
-            ₹{totalInterest.toFixed(2)}
-          </h3>
-        </div>
-
-        <div className="border rounded-xl p-4">
-          <p className="text-xs text-gray-500 uppercase">Total Payable</p>
-
-          <h3 className="text-xl font-bold mt-2">₹{totalPayable.toFixed(2)}</h3>
-        </div>
-      </div>
+  <div className="border rounded-xl p-4">
+    <p className="text-xs text-gray-500 uppercase">Total Payable</p>
+    <h3 className="text-xl font-bold mt-2 break-all">
+      ₹{totalPayable.toFixed(2)}
+    </h3>
+  </div>
+</div>
 
       {/* Principal vs Interest */}
       <RatioBar

@@ -29,7 +29,7 @@ function RatioBar({
         </div>
       </div>
 
-      <div className="flex gap-6 mt-3 text-sm">
+      <div className="flex flex-wrap gap-3 mt-3 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-blue-600 rounded"></div>
           <span>Principal ₹{amount.toFixed(2)}</span>

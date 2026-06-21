@@ -9,7 +9,7 @@ function Header() {
 
   return (
     <header className="bg-white rounded-xl shadow p-3 mb-4">
-      <div className="flex items-center justify-between">
+     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
         <div>
           <h1 className="text-xl font-bold text-blue-600">EMI Calculator</h1>
           <p className="text-xs text-gray-500">
@@ -17,7 +17,7 @@ function Header() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 flex-wrap">
           <div className="border border-gray-200 rounded-full px-3 py-1 flex items-center gap-2">
             <span className="text-sm font-medium">
               {tabId ? `Tab ${tabId}` : "Tab"}

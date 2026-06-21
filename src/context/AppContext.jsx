@@ -2,6 +2,7 @@
 
 import useUndoSync from "@/hooks/useUndoSync";
 import { createContext, useEffect, useRef, useState } from "react";
+import useURLState from "@/hooks/useURLState";
 
 export const AppContext = createContext();
 
@@ -23,6 +24,8 @@ function AppProvider({ children }) {
   const historyRef = useRef([]);
   const stateRef = useRef({});
   const myIdRef = useRef(""); // ← apna id ref mein bhi rakkho
+
+   useURLState(amount, rate, tenure, setAmount, setRate, setTenure);
 
   // stateRef updated rakkho
   useEffect(() => {
@@ -141,7 +144,7 @@ setTabId(shortId); // ← UI mein short id dikhao
         setPrepayments(data.prepayments ?? []);
         setTimeout(() => {
           isSyncingRef.current = false;
-        }, 100);
+        }, 500);
         return;
       }
 
@@ -156,7 +159,7 @@ setTabId(shortId); // ← UI mein short id dikhao
         setPrepayments(data.prepayments ?? []);
         setTimeout(() => {
           isSyncingRef.current = false;
-        }, 100);
+        }, 500);
         return;
       }
     };

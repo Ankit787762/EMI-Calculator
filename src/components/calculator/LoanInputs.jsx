@@ -25,7 +25,7 @@ import { AppContext } from "@/context/AppContext";
             type="number"
             value={amount}
             onChange={(e) => {pushHistory();setAmount(Number(e.target.value));}}
-            className="w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
+            className="w-20 sm:w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
           />
         </div>
 
@@ -54,7 +54,7 @@ import { AppContext } from "@/context/AppContext";
             type="number"
             value={rate}
             onChange={(e) =>{pushHistory(); setRate(Number(e.target.value));}}
-            className="w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
+            className="w-20 sm:w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
           />
         </div>
 
@@ -83,7 +83,7 @@ import { AppContext } from "@/context/AppContext";
             type="number"
             value={tenure}
             onChange={(e) =>{pushHistory(); setTenure(Number(e.target.value));}}
-            className="w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
+            className="w-20 sm:w-28 border border-gray-300 rounded-lg px-2 py-1 text-right text-sm"
           />
         </div>
 

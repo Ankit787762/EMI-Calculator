@@ -12,25 +12,15 @@ function AmortizationTable() {
   let balance = amount;
   const schedule = [];
 
-  let cumulativePrincipal = 0;
-  let cumulativeInterest = 0;
-  let breakEvenMonth = null;
+ for (let month = 1; month <= tenure; month++) {
+  const interest = (balance * rate) / 12 / 100;
+  const principal = emi - interest;
+  balance = Math.max(balance - principal, 0);
+  schedule.push({ month, emi, principal, interest, balance });
+}
 
-  for (let month = 1; month <= tenure; month++) {
-    const interest = (balance * rate) / 12 / 100;
-    const principal = emi - interest;
-
-    cumulativePrincipal += principal;
-    cumulativeInterest += interest;
-
-    if (breakEvenMonth === null && cumulativePrincipal > cumulativeInterest) {
-      breakEvenMonth = month;
-    }
-
-    balance = Math.max(balance - principal, 0);
-
-    schedule.push({ month, emi, principal, interest, balance });
-  }
+const breakEvenMonth =
+  schedule.findIndex((row) => row.principal >= row.interest) + 1;
 
   const [currPage, setCurrPage] = useState(1);
   const rowsPerPage = 12;
@@ -45,7 +35,9 @@ function AmortizationTable() {
       {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h2 className="text-base font-semibold text-gray-900">Amortization Schedule</h2>
+          <h2 className="text-base font-semibold text-gray-900">
+            Amortization Schedule
+          </h2>
           <p className="text-xs text-gray-500 mt-0.5">
             Month-by-month Principal & Interest breakdown
           </p>
@@ -61,25 +53,31 @@ function AmortizationTable() {
 
       {/* Controls */}
       <div className="flex items-center gap-3 mb-4">
-       <button
-  onClick={() => setView("table")}
-  className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
-    view === "table" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-  }`}
->
-  Table
-</button>
-<button
-  onClick={() => setView("chart")}
-  className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
-    view === "chart" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-  }`}
->
-  Chart
-</button>
+        <button
+          onClick={() => setView("table")}
+          className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+            view === "table"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          Table
+        </button>
+        <button
+          onClick={() => setView("chart")}
+          className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+            view === "chart"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          Chart
+        </button>
         <span className="text-xs text-gray-500">
           Break-even at{" "}
-          <span className="text-blue-600 font-medium">month {breakEvenMonth}</span>
+          <span className="text-blue-600 font-medium">
+            month {breakEvenMonth}
+          </span>
         </span>
       </div>
 
@@ -89,12 +87,24 @@ function AmortizationTable() {
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-4 py-3 text-gray-500 font-medium">Month</th>
-                <th className="text-right px-4 py-3 text-gray-500 font-medium">EMI</th>
-                <th className="text-right px-4 py-3 text-gray-500 font-medium">Principal</th>
-                <th className="text-right px-4 py-3 text-gray-500 font-medium">Interest</th>
-                <th className="text-right px-4 py-3 text-gray-500 font-medium">Prepayment</th>
-                <th className="text-right px-4 py-3 text-gray-500 font-medium">Balance</th>
+                <th className="text-left px-4 py-3 text-gray-500 font-medium">
+                  Month
+                </th>
+                <th className="text-right px-4 py-3 text-gray-500 font-medium">
+                  EMI
+                </th>
+                <th className="text-right px-4 py-3 text-gray-500 font-medium">
+                  Principal
+                </th>
+                <th className="text-right px-4 py-3 text-gray-500 font-medium">
+                  Interest
+                </th>
+                <th className="text-right px-4 py-3 text-gray-500 font-medium">
+                  Prepayment
+                </th>
+                <th className="text-right px-4 py-3 text-gray-500 font-medium">
+                  Balance
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -115,11 +125,19 @@ function AmortizationTable() {
                       )}
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-right text-gray-700">{fmt(row.emi)}</td>
-                  <td className="px-4 py-3 text-right text-blue-600 font-medium">{fmt(row.principal)}</td>
-                  <td className="px-4 py-3 text-right text-orange-500 font-medium">{fmt(row.interest)}</td>
+                  <td className="px-4 py-3 text-right text-gray-700">
+                    {fmt(row.emi)}
+                  </td>
+                  <td className="px-4 py-3 text-right text-blue-600 font-medium">
+                    {fmt(row.principal)}
+                  </td>
+                  <td className="px-4 py-3 text-right text-orange-500 font-medium">
+                    {fmt(row.interest)}
+                  </td>
                   <td className="px-4 py-3 text-right text-gray-400">—</td>
-                  <td className="px-4 py-3 text-right text-gray-700">{fmt(row.balance)}</td>
+                  <td className="px-4 py-3 text-right text-gray-700">
+                    {fmt(row.balance)}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -130,9 +148,10 @@ function AmortizationTable() {
       {view === "chart" && <ChartView schedule={schedule} />}
 
       {/* Footer */}
-      <div className="flex justify-between items-center mt-4 text-xs text-gray-500">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-3 text-xs gap-2 text-gray-500">
         <span>
-          Showing {startIndex + 1}–{Math.min(startIndex + rowsPerPage, schedule.length)} of{" "}
+          Showing {startIndex + 1}–
+          {Math.min(startIndex + rowsPerPage, schedule.length)} of{" "}
           {schedule.length} months
         </span>
         <div className="flex items-center gap-2">
@@ -143,10 +162,14 @@ function AmortizationTable() {
           >
             ‹ Prev
           </button>
-          <span>{currPage} / {totalPages}</span>
+          <span>
+            {currPage} / {totalPages}
+          </span>
           <button
             data-btn="gray"
-            onClick={() => setCurrPage((prev) => Math.min(prev + 1, totalPages))}
+            onClick={() =>
+              setCurrPage((prev) => Math.min(prev + 1, totalPages))
+            }
             className="px-3 py-1 border rounded"
           >
             Next ›
