@@ -60,11 +60,9 @@ This project demonstrates:
 - Updated repayment schedule
 
 ### 🌐 Shared Workspace
-- Real-Time Cross-Tab Synchronization
-- Unique Tab Identity
-- Active Tab Counter
-- Theme Synchronization
-- Undo Across Tabs
+- Real-time cross-tab synchronization using BroadcastChannel API
+- Updates are synced across multiple tabs in the same browser 
+- Each tab acts as a live session of the same workspace
 
 ### 📤 Additional Features
 - CSV Export
