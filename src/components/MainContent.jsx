@@ -3,7 +3,7 @@
 import { useContext } from "react";
 import { AppContext } from "@/context/AppContext";
 import LoanInputs from "@/components/calculator/LoanInputs";
-import SummaryCards from "@/components/calculator/SummaryCards";
+import SummaryCards from "@/components/calculator/Summarycards";
 import SensitivityTable from "@/components/features/SensitivityTable";
 import ModeTabs from "@/components/features/ModeTabs";
 import AmortizationTable from "@/components/amortization/AmortizationTable";
