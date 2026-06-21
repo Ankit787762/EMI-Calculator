@@ -106,31 +106,46 @@ This project was built as part of a Frontend Internship Assignment to demonstrat
 ```text
 src
 ├── app
+│   ├── favicon.ico
+│   ├── globals.css
 │   ├── layout.js
-│   ├── page.js
-│   └── globals.css
+│   └── page.js
 │
 ├── components
-│   ├── calculator
 │   ├── amortization
+│   │   ├── AmortizationTable.jsx
+│   │   └── ChartView.jsx
+│   │
+│   ├── calculator
+│   │   ├── LoanInputs.jsx
+│   │   ├── RatioBar.jsx
+│   │   └── SummaryCards.jsx
+│   │
 │   ├── compareMode
-│   ├── prepayment
-│   ├── sensitivityTable
-│   ├── charts
-│   └── layout
+│   │   ├── CompareMode.jsx
+│   │   └── ScenarioCard.jsx
+│   │
+│   ├── features
+│   │   ├── ModeTabs.jsx
+│   │   └── SensitivityTable.jsx
+│   │
+│   ├── layout
+│   │   └── Header.jsx
+│   │
+│   └── Prepayment
+│       ├── MainContent.jsx
+│       ├── PrepaymentPlanner.jsx
+│       └── PrepaymentSchedule.jsx
 │
 ├── context
 │   └── AppContext.jsx
 │
 ├── hooks
-│   ├── useBroadcastSync.js
 │   ├── useUndoSync.js
 │   └── useURLState.js
 │
 └── utils
     ├── emi.js
-    ├── amortization.js
-    ├── prepayment.js
     └── exportCSV.js
 ```
 
@@ -187,8 +202,8 @@ The application also generates:
 **Ankit Swami**
 
 
-- GitHub: https://github.com/your-username
-- LinkedIn: https://linkedin.com/in/your-profile
+- GitHub: https://github.com/Ankit787762
+- LinkedIn: www.linkedin.com/in/ankit-swami-612971283
 
 
 
